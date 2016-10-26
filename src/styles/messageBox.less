@@ -1,0 +1,208 @@
+/*常用的CSS模块*/
+/*常用颜色样式*/
+.red {
+  color: #e94c3c;
+}
+/*超出*/
+.exceed{
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*用于选择内容的模块*/
+.comm-select-module(@height: 0.5rem,@margin:0.01rem 0 0 0) {
+  .comm-select-module {
+    margin: @margin;
+    height: @height;
+    line-height: @height;
+    background: #ffffff;
+    width: 3.75rem;
+    border: 0.01rem solid #f5f5f5;
+    .left-icon {
+      float: left;
+      color: #7c7c7c;
+      width: @height;
+      height: @height;
+      text-align: center;
+      //font-size: 0.17rem;
+    }
+    .center-content {
+      position: relative;
+      //font-size:17px;
+      color: #7c7c7c;
+      text-align: left;
+    }
+    .top-label {
+      position: absolute;
+      width: 0.1rem;
+      top: 0.04rem;
+      right: -0.16rem;
+      height: 0.1rem;
+      background: #e84c3d;
+      border-radius: 100%;
+    }
+    .right-icon {
+      float: right;
+      width: @height;
+      height: @height;
+      text-align: center;
+      color: #c7c7c7;
+      //font-size: 17px;
+    }
+  }
+};
+/*用于页面底部导航*/
+.comm-bottnav-module(@height: 0.5rem,@listWidth:25%) {
+  .comm-bottnav-module {
+    background: #ffffff;
+    height: @height;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    display: table;
+    .nav-list {
+      display: table-cell;
+      width: @listWidth;
+      .nav-list-icon {
+        position: relative;
+        display: block;
+        color: #7c7c7c;
+        //font-size:24px;
+      }
+      .nav-list-content {
+        //font-size:10px;
+        color: #333333;
+      }
+      .top-label {
+        position: absolute;
+        width: 0.10rem;
+        top: 0.05rem;
+        right: 0.2rem;
+        height: 0.1rem;
+        background: #e84c3d;
+        border-radius: 100%;
+      }
+      &:active {
+        i, span {
+          color: #e84c3d;
+        }
+      }
+      &.active {
+        i, span {
+          color: #e84c3d;
+        }
+      }
+    }
+  }
+};
+/*同行双按钮*/
+.double-btn(@height:0.47rem,@lbg:#e84c3d,@rbg:#ffbd24) {
+  .double-btn{
+    display: table;
+    width: 100%;
+    height: @height;
+    color: #ffffff;
+    .left-btn {
+      width: 50%;
+      background: @lbg;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .right-btn {
+      width: 50%;
+      background: @rbg;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+}
+/*同行单按钮*/
+.one-btn(@margin:0.25rem 0.19rem 0.19rem 0.20rem){
+  margin: @margin;
+  width: 3.04rem;
+  height: 0.44rem;
+  background: #e84c3d;
+  border-radius: 0.04rem;
+  line-height: 0.44rem;
+  color: #ffffff;
+};
+/*顶部双按钮*/
+.top-dbtn-module(@height:0.45rem){
+  .top-dbtn-module {
+    position: relative;
+    background: #ffffff;
+    width: 100%;
+    height: @height;
+    line-height: @height;
+    span {
+      display: inline-block;
+      width: 50%;
+      text-align: center;
+      border-bottom: 0.03rem solid #ffffff;
+      &:active{
+        color: #e84c3d;
+        border-bottom-color: #e84c3d;
+      }
+      &.active{
+        color: #e84c3d;
+        border-bottom-color: #e84c3d;
+      }
+    }
+  }
+}
+/*用于弹窗背景*/
+.comm-window-module(@bg:rgba(0, 0, 0, 0.5),@z:20) {
+  .comm-window-module {
+    width: 100%;
+    height: 100%;
+    z-index: @z;
+    background: @bg;
+    position: fixed;
+    text-align: center;
+  }
+};
+/*用于弹窗内容*/
+.comm-wincont-module(@bg:#ffffff,@z:21) {
+  .comm-wincont-module {
+    background: #ffffff;
+    border-radius: 0.04rem;
+    width: 3.43rem;
+    position: absolute;
+    top: 1.36rem;
+    margin-left: 0.17rem;
+    .window-title {
+      width: 3.07rem;
+      height: 0.43rem;
+      line-height: 0.43rem;
+      text-align: center;
+      margin-left: 0.13rem;
+      border-bottom: 0.01rem solid #f5f5f5;
+      i {
+        position: absolute;
+        left: 0;
+        width: 0.6rem;
+        color: #c7c7c7;
+        z-index: 21;
+      }
+      span {
+        //font-size: 0.17rem;
+        color: #333333;
+      }
+    }
+    .window-content {
+      .world-content {
+        word-break: break-all;
+        color: #7c7c7c;
+        text-align: left;
+        margin: 0.02rem 0.15rem;
+      }
+    }
+    .double-btn(0.55rem, #ffffff, #e94c3c);
+  }
+};

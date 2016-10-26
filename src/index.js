@@ -1,6 +1,15 @@
 import template from './template';
 
 export default {
+    /**
+     *
+     * @param _title    标题
+     * @param _content  显示内容
+     * @param okEvent       确定事件
+     * @param cancelEvent   取消事件
+     * @param _type         按钮类型
+     * @param _animation    淡入淡出动画
+     */
     showMsg (_title, _content, okEvent, cancelEvent, _type, _animation) {
         let _id = +new Date();
         let d = document;
@@ -21,38 +30,34 @@ export default {
         let $hasTouch = 'ontouchend' in window;
         // 点透问题
         let $eventStart = $hasTouch ? 'touchend' : 'click';
-        let _html = template.replace('{{title}}', _title)
+        let _html = template.messageBox.replace('{{title}}', _title)
             .replace('{{content}}', _content)
             .replace(/\{\{id\}\}/ig, _id)
             .replace('{{animation}}', _animation);
 
         _html = _html.replace('{{button}}', _btnHtml[_type]);
+        // 插入消息框
         d.body.insertAdjacentHTML('beforeend', _html);
+
         let _obj = d.querySelector('#message_' + _id);
-        // let _objJS = d.querySelector('#message_js_' + _id);
+        // 毛玻璃背景
+        let bgContent = d.querySelector('.wrapperContains');
+        bgContent.classList.add('blur');// = 'wrapperContains blur';
 
-
-        d.querySelector('.wrapperContains').className = 'wrapperContains blur';
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             let _className = e.target.className;
             if (_className.indexOf('js-cancel') > -1) {
-                d.querySelector('.wrapperContains').className = 'wrapperContains';
+                bgContent.classList.remove('blur');
                 cancelEvent && cancelEvent();
-                // _obj.remove();
-                // _obj && _obj.parentNode.removeChild(_obj);
-                //
                 _obj.className = `screenLock animated ${_animation}Out`;
                 setTimeout(function () {
                     _obj && _obj.parentNode.removeChild(_obj);
                 }, 500);
             }
             if (_className.indexOf('js-ok') > -1) {
-                d.querySelector('.wrapperContains').className = 'wrapperContains';
+                bgContent.classList.remove('blur');
                 okEvent && okEvent();
-                // _obj.remove();
-                // _obj && _obj.parentNode.removeChild(_obj);
-                // _obj && _obj.parentNode.removeChild(_obj);
                 _obj.className = `screenLock animated ${_animation}Out`;
                 setTimeout(function () {
                     _obj && _obj.parentNode.removeChild(_obj);
