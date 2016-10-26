@@ -5,8 +5,8 @@
 }(this, (function () { 'use strict';
 
 var template = {
-    messageBox: "<div id=\"message_{{id}}\" class=\"comm-window-module {{animation}}In\">\n        <div class=\"outline-window\">\n            <div class=\"window-title\">\n                <i class=\"fs17\">X</i>\n                <span class=\"fs17\">{{title}}</span>\n            </div>\n            <div class=\"window-content\">\n                {{content}}\n            </div>\n            {{button}}\n        </div>\n    </div>",
-    button: ["<div class=\"search-others fs15 js-messageBox-ok\">{{buttonText}}</div>"]
+    messageBox: "\n    <div id=\"message_{{id}}\" class=\"screenLock\">\n    <div id=\"message_js_{{id}}\" class=\"lcs message animated {{animation}}In\">\n        <div class=\"title lcs\">\n        {{title}}\n        </div>\n        <div class=\"content lcs\">\n        {{content}}\n        </div>\n        <div class=\"buttonGroup lcs\">\n            {{button}}\n        </div>\n    </div></div>",
+    button: ["<button class=\"leftBtn js-cancel lcs\">\u53D6\u6D88</button>\n             <button class=\"rightBtn js-ok lcs\">\u786E\u5B9A</button>", "<button class=\"btn js-ok lcs\">\n            {{text}}</button>"]
 };
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -232,20 +232,20 @@ var index = {
         var $eventStart = $hasTouch ? 'touchend' : 'click';
         var _html = template.messageBox.replace('{{title}}', _title).replace('{{content}}', _content).replace(/\{\{id\}\}/ig, _id).replace('{{animation}}', _animation);
 
-        _html = _html.replace('{{button}}', _btnHtml[_type]);
+        _html = _html.replace('{{button}}', template.button[_type]);
 
         d.body.insertAdjacentHTML('beforeend', _html);
 
         var _obj = d.querySelector('#message_' + _id);
 
         var bgContent = d.querySelector('.wrapperContains');
-        bgContent.classList.add('blur');
+        bgContent && bgContent.classList.add('blur');
 
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             var _className = e.target.className;
             if (_className.indexOf('js-cancel') > -1) {
-                bgContent.classList.remove('blur');
+                bgContent && bgContent.classList.remove('blur');
                 cancelEvent && cancelEvent();
                 _obj.className = 'screenLock animated ' + _animation + 'Out';
                 setTimeout(function () {

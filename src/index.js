@@ -35,20 +35,20 @@ export default {
             .replace(/\{\{id\}\}/ig, _id)
             .replace('{{animation}}', _animation);
 
-        _html = _html.replace('{{button}}', _btnHtml[_type]);
+        _html = _html.replace('{{button}}', template.button[_type]);
         // 插入消息框
         d.body.insertAdjacentHTML('beforeend', _html);
 
         let _obj = d.querySelector('#message_' + _id);
         // 毛玻璃背景
         let bgContent = d.querySelector('.wrapperContains');
-        bgContent.classList.add('blur');// = 'wrapperContains blur';
+        bgContent&&bgContent.classList.add('blur');// = 'wrapperContains blur';
 
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             let _className = e.target.className;
             if (_className.indexOf('js-cancel') > -1) {
-                bgContent.classList.remove('blur');
+                bgContent&&bgContent.classList.remove('blur');
                 cancelEvent && cancelEvent();
                 _obj.className = `screenLock animated ${_animation}Out`;
                 setTimeout(function () {

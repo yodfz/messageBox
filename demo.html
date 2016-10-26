@@ -7,8 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./src/styles/messageBox.css">
+    <script src="dist/messageBox.js"></script>
 </head>
 <body>
-<button>show me modal</button>
+<div class="wrapperContains">
+    <button onclick="showme()">show me modal</button>
+</div>
+<script>
+    function showme() {
+        messageBox.showMsg('测试','内容',function(e){
+            alert('ok');
+        },function(e){
+            alert('cancel')
+        },0);
+    }
+</script>
 </body>
 </html>

@@ -5,6 +5,6 @@ export default {
     entry: './src/index.js',
     plugins: [babel(babelrc())],
     format: 'umd',
-    dest: '../dist/messageBox.js',
+    dest: './dist/messageBox.js',
     moduleName: 'messageBox'
 };
