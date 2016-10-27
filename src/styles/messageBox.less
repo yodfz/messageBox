@@ -1,9 +1,9 @@
-@baseColor:#333;
+@baseColor:#e84c3d;
 .message {
   position: fixed;
   background-color: rgba(255, 255, 255, .8);
-  margin: 0 8%;
-  width: 84%;
+  margin: 0 2.5%;
+  width: 95%;
   top: 20%;
   padding-top: .15rem;
   background-color: #fff;
@@ -14,6 +14,57 @@
   //-webkit-box-shadow: 1px 1px 10px #ccc;
   color: #000;
   z-index: 20;
+  .close{
+    position: absolute;
+    display: block;
+    top:.1rem;
+    left:0;
+    margin:0 0 0 .1rem;
+    width:20px;
+    height:20px;
+    &::after,&::before{
+      display: block;
+      content:' ';
+      border-top:2px solid #c7c7c7;
+    }
+    &::after{
+      transform:translateX(1px) rotate(45deg);
+    }
+
+    &::before{
+      transform:rotate(135deg);
+
+    }
+  }
+
+  &.modal1{
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    padding:0.2rem .4rem .4rem .4rem;
+    .close{
+      margin:0.2rem 0 0 0 !important;
+    }
+    .modal1_title{
+      height:.6rem;
+      line-height:.6rem;
+      color:#333;
+      font-size:.34rem;
+      border-bottom:1px solid #f5f5f5;
+    }
+    .modal1_content{
+
+    }
+    .btn-color{
+      width:100%;
+      border:0;
+      height:.8rem;
+      line-height:.8rem;
+      border-radius: .08rem;
+      -webkit-border-radius: .08rem;
+      font-size:.3rem;
+    }
+  }
+
 }
 
 .screenLock {
@@ -28,6 +79,7 @@
 }
 
 .message .title {
+  position: relative;
   text-align: center;
   height: .4rem;
   line-height: .4rem;
@@ -50,7 +102,7 @@
 
 .message .buttonGroup {
   padding-top: .1rem;
-  height: .6rem;
+  //height: .6rem;
 }
 
 .message .buttonGroup .leftBtn,
@@ -71,6 +123,12 @@
   border-bottom-left-radius: .1rem;
   border-top:1px solid #eee;
   color: @baseColor
+}
+.message .buttonGroup{
+  .btn-color{
+    color:#fff;
+    background-color: @baseColor;
+  }
 }
 .message .buttonGroup .leftBtn {
   border-top: 1px solid #eee;

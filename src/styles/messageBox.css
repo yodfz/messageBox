@@ -1,8 +1,8 @@
 .message {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.8);
-  margin: 0 8%;
-  width: 84%;
+  margin: 0 2.5%;
+  width: 95%;
   top: 20%;
   padding-top: .15rem;
   background-color: #fff;
@@ -11,6 +11,51 @@
   -webkit-border-radius: .1rem;
   color: #000;
   z-index: 20;
+}
+.message .close {
+  position: absolute;
+  display: block;
+  top: .1rem;
+  left: 0;
+  margin: 0 0 0 .1rem;
+  width: 20px;
+  height: 20px;
+}
+.message .close::after,
+.message .close::before {
+  display: block;
+  content: ' ';
+  border-top: 2px solid #c7c7c7;
+}
+.message .close::after {
+  transform: translateX(1px) rotate(45deg);
+}
+.message .close::before {
+  transform: rotate(135deg);
+}
+.message.modal1 {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 0.2rem .4rem .4rem .4rem;
+}
+.message.modal1 .close {
+  margin: 0.2rem 0 0 0 !important;
+}
+.message.modal1 .modal1_title {
+  height: .6rem;
+  line-height: .6rem;
+  color: #333;
+  font-size: .34rem;
+  border-bottom: 1px solid #f5f5f5;
+}
+.message.modal1 .btn-color {
+  width: 100%;
+  border: 0;
+  height: .8rem;
+  line-height: .8rem;
+  border-radius: .08rem;
+  -webkit-border-radius: .08rem;
+  font-size: .3rem;
 }
 .screenLock {
   position: fixed;
@@ -22,6 +67,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 .message .title {
+  position: relative;
   text-align: center;
   height: .4rem;
   line-height: .4rem;
@@ -41,7 +87,6 @@
 }
 .message .buttonGroup {
   padding-top: .1rem;
-  height: .6rem;
 }
 .message .buttonGroup .leftBtn,
 .message .buttonGroup .rightBtn,
@@ -60,14 +105,18 @@
   border-bottom-right-radius: .1rem;
   border-bottom-left-radius: .1rem;
   border-top: 1px solid #eee;
-  color: #333;
+  color: #e84c3d;
+}
+.message .buttonGroup .btn-color {
+  color: #fff;
+  background-color: #e84c3d;
 }
 .message .buttonGroup .leftBtn {
   border-top: 1px solid #eee;
   box-sizing: border-box;
 }
 .message .buttonGroup .rightBtn {
-  background-color: #333;
+  background-color: #e84c3d;
   border-bottom-right-radius: .1rem;
   color: #fff;
 }

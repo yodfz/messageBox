@@ -5,8 +5,9 @@
 }(this, (function () { 'use strict';
 
 var template = {
-    messageBox: "\n    <div id=\"message_{{id}}\" class=\"screenLock\">\n    <div id=\"message_js_{{id}}\" class=\"lcs message animated {{animation}}In\">\n        <div class=\"title lcs\">\n        {{title}}\n        </div>\n        <div class=\"content lcs\">\n        {{content}}\n        </div>\n        <div class=\"buttonGroup lcs\">\n            {{button}}\n        </div>\n    </div></div>",
-    button: ["<button class=\"leftBtn js-cancel lcs\">\u53D6\u6D88</button>\n             <button class=\"rightBtn js-ok lcs\">\u786E\u5B9A</button>", "<button class=\"btn js-ok lcs\">\n            {{text}}</button>"]
+    messageBox: '\n    <div id="message_{{id}}" class="screenLock">\n    <div id="message_js_{{id}}" class="lcs message animated {{animation}}In {{className}}">\n        <div class="title lcs {{className}}_title">\n        <span class="close js-cancel"></span>\n        {{title}}\n        </div>\n        <div class="content lcs {{className}}_content">\n        {{content}}\n        </div>\n        <div class="buttonGroup lcs">\n            {{button}}\n        </div>\n    </div></div>',
+    button: ['<button class="leftBtn js-cancel">\u53D6\u6D88</button>\n             <button class="rightBtn js-ok">\u786E\u5B9A</button>', '<button class="btn js-ok">\u786E\u5B9A</button>', '<button class="js-ok btn-color">{{buttonText}}</button>'],
+    className: ['', '', 'modal1']
 };
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -213,15 +214,17 @@ var index = {
     showMsg: function showMsg(_title, _content, okEvent, cancelEvent, _type, _animation) {
         var _id = +new Date();
         var d = document;
+        var buttonText = '';
 
         if ((typeof _title === 'undefined' ? 'undefined' : _typeof(_title)) === 'object') {
             var result = Object.assign({}, _title);
             _title = result.title;
             _content = result.content;
-            okEvent = result.okEvent;
-            cancelEvent = result.cancelEvent;
+            okEvent = result.ok;
+            cancelEvent = result.cancel;
             _type = result.type;
             _animation = result.animation;
+            buttonText = result.buttonText;
         }
 
         _type = _type || 0;
@@ -230,15 +233,17 @@ var index = {
         var $hasTouch = 'ontouchend' in window;
 
         var $eventStart = $hasTouch ? 'touchend' : 'click';
-        var _html = template.messageBox.replace('{{title}}', _title).replace('{{content}}', _content).replace(/\{\{id\}\}/ig, _id).replace('{{animation}}', _animation);
+        var className = template.className[_type];
+        var _html = template.messageBox.replace('{{title}}', _title).replace('{{content}}', _content).replace(/\{\{id\}\}/ig, _id).replace(/\{\{className\}\}/ig, className).replace('{{animation}}', _animation);
 
-        _html = _html.replace('{{button}}', template.button[_type]);
+        _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText));
 
         d.body.insertAdjacentHTML('beforeend', _html);
 
         var _obj = d.querySelector('#message_' + _id);
 
         var bgContent = d.querySelector('.wrapperContains');
+        className && _obj.classList.add(className);
         bgContent && bgContent.classList.add('blur');
 
         _obj.addEventListener($eventStart, function (e) {
@@ -248,6 +253,7 @@ var index = {
                 bgContent && bgContent.classList.remove('blur');
                 cancelEvent && cancelEvent();
                 _obj.className = 'screenLock animated ' + _animation + 'Out';
+
                 setTimeout(function () {
                     _obj && _obj.parentNode.removeChild(_obj);
                 }, 500);

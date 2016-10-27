@@ -6,20 +6,33 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="resetDPR.js"></script>
     <link rel="stylesheet" href="./src/styles/messageBox.css">
     <script src="dist/messageBox.js"></script>
 </head>
 <body>
 <div class="wrapperContains">
-    <button onclick="showme()">show me modal</button>
+    <button onclick="showme(0)">show me modal0</button>
+    <button onclick="showme(1)">show me modal1</button>
+    <button onclick="showme(2)">show me modal2</button>
+    <button onclick="showme(3)">show me modal3</button>
+    <button onclick="showme(4)">show me modal4</button>
 </div>
 <script>
-    function showme() {
-        messageBox.showMsg('测试','内容',function(e){
-            alert('ok');
-        },function(e){
-            alert('cancel')
-        },0);
+    function showme(type) {
+        type = type ||0;
+        messageBox.showMsg({
+            title: '测试',
+            content: '内容',
+            ok: function (e) {
+                alert('ok');
+            },
+            cancel: function (e) {
+                alert('cancel')
+            },
+            type: type,
+            buttonText:'确定解约'
+        });
     }
 </script>
 </body>
