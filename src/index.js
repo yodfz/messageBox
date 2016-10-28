@@ -14,6 +14,7 @@ export default {
         let _id = +new Date();
         let d = document;
         let buttonText = '';
+        let opt = {};
         // 初始化
         if (typeof _title === 'object') {
             let result = Object.assign({}, _title);
@@ -24,6 +25,8 @@ export default {
             _type = result.type;
             _animation = result.animation;
             buttonText = result.buttonText;
+            opt.okButtonText = result.okButtonText||'确定';
+            opt.cancelButtonText = result.cancelButtonText||'取消';
         }
         // 判断类型,计算给什么种类的按钮
         _type = _type || 0;
@@ -41,7 +44,9 @@ export default {
 
         _html = _html.replace('{{button}}',
             template.button[_type]
-            .replace('{{buttonText}}',buttonText)
+                .replace('{{buttonText}}', buttonText)
+                .replace('{{okButtonText}}',opt.okButtonText)
+                .replace('{{cancelButtonText}}',opt.cancelButtonText)
         );
         // 插入消息框
         d.body.insertAdjacentHTML('beforeend', _html);
@@ -49,14 +54,14 @@ export default {
         let _obj = d.querySelector('#message_' + _id);
         // 毛玻璃背景
         let bgContent = d.querySelector('.wrapperContains');
-        className&&_obj.classList.add(className);
-        bgContent&&bgContent.classList.add('blur');// = 'wrapperContains blur';
+        className && _obj.classList.add(className);
+        bgContent && bgContent.classList.add('blur');// = 'wrapperContains blur';
 
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             let _className = e.target.className;
             if (_className.indexOf('js-cancel') > -1) {
-                bgContent&&bgContent.classList.remove('blur');
+                bgContent && bgContent.classList.remove('blur');
                 cancelEvent && cancelEvent();
                 _obj.className = `screenLock animated ${_animation}Out`;
                 // 在动画结束的时候再次移除
@@ -65,7 +70,7 @@ export default {
                 }, 500);
             }
             if (_className.indexOf('js-ok') > -1) {
-                bgContent.classList.remove('blur');
+                bgContent&&bgContent.classList.remove('blur');
                 okEvent && okEvent();
                 _obj.className = `screenLock animated ${_animation}Out`;
                 setTimeout(function () {

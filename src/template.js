@@ -14,8 +14,8 @@ export default  {
         </div>
     </div></div>`,
     button:[
-        `<button class="leftBtn js-cancel">取消</button>
-             <button class="rightBtn js-ok">确定</button>`,
+        `<button class="leftBtn js-cancel">{{cancelButtonText}}</button>
+             <button class="rightBtn js-ok">{{okButtonText}}</button>`,
         `<button class="btn js-ok">确定</button>`,
         `<button class="js-ok btn-color">{{buttonText}}</button>`
     ],

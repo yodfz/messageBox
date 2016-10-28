@@ -6,7 +6,7 @@
 
 var template = {
     messageBox: '\n    <div id="message_{{id}}" class="screenLock">\n    <div id="message_js_{{id}}" class="lcs message animated {{animation}}In {{className}}">\n        <div class="title lcs {{className}}_title">\n        <span class="close js-cancel"></span>\n        {{title}}\n        </div>\n        <div class="content lcs {{className}}_content">\n        {{content}}\n        </div>\n        <div class="buttonGroup lcs">\n            {{button}}\n        </div>\n    </div></div>',
-    button: ['<button class="leftBtn js-cancel">\u53D6\u6D88</button>\n             <button class="rightBtn js-ok">\u786E\u5B9A</button>', '<button class="btn js-ok">\u786E\u5B9A</button>', '<button class="js-ok btn-color">{{buttonText}}</button>'],
+    button: ['<button class="leftBtn js-cancel">{{cancelButtonText}}</button>\n             <button class="rightBtn js-ok">{{okButtonText}}</button>', '<button class="btn js-ok">\u786E\u5B9A</button>', '<button class="js-ok btn-color">{{buttonText}}</button>'],
     className: ['', '', 'modal1']
 };
 
@@ -215,6 +215,7 @@ var index = {
         var _id = +new Date();
         var d = document;
         var buttonText = '';
+        var opt = {};
 
         if ((typeof _title === 'undefined' ? 'undefined' : _typeof(_title)) === 'object') {
             var result = Object.assign({}, _title);
@@ -225,6 +226,8 @@ var index = {
             _type = result.type;
             _animation = result.animation;
             buttonText = result.buttonText;
+            opt.okButtonText = result.okButtonText || '确定';
+            opt.cancelButtonText = result.cancelButtonText || '取消';
         }
 
         _type = _type || 0;
@@ -236,7 +239,7 @@ var index = {
         var className = template.className[_type];
         var _html = template.messageBox.replace('{{title}}', _title).replace('{{content}}', _content).replace(/\{\{id\}\}/ig, _id).replace(/\{\{className\}\}/ig, className).replace('{{animation}}', _animation);
 
-        _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText));
+        _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText).replace('{{okButtonText}}', opt.okButtonText).replace('{{cancelButtonText}}', opt.cancelButtonText));
 
         d.body.insertAdjacentHTML('beforeend', _html);
 
@@ -259,7 +262,7 @@ var index = {
                 }, 500);
             }
             if (_className.indexOf('js-ok') > -1) {
-                bgContent.classList.remove('blur');
+                bgContent && bgContent.classList.remove('blur');
                 okEvent && okEvent();
                 _obj.className = 'screenLock animated ' + _animation + 'Out';
                 setTimeout(function () {
