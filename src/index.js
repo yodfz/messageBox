@@ -25,8 +25,10 @@ export default {
             _type = result.type;
             _animation = result.animation;
             buttonText = result.buttonText;
-            opt.okButtonText = result.okButtonText||'确定';
-            opt.cancelButtonText = result.cancelButtonText||'取消';
+            opt.okButtonText = result.okButtonText || '确定';
+            opt.cancelButtonText = result.cancelButtonText || '取消';
+            opt.okButtonDisabled = result.okButtonDisabled || false;
+            opt.cancelButtonDisabled = result.cancelButtonDisabled || false;
         }
         // 判断类型,计算给什么种类的按钮
         _type = _type || 0;
@@ -42,15 +44,24 @@ export default {
             .replace(/\{\{className\}\}/ig, className)
             .replace('{{animation}}', _animation);
 
+        let okAttr = '';
+        let cancelAttr = '';
+        if (opt.okButtonDisabled) {
+            okAttr = ' disabled="disabled"';
+        }
+        if (opt.cancelButtonDisabled) {
+            cancelAttr = ' disabled="disabled"';
+        }
         _html = _html.replace('{{button}}',
             template.button[_type]
                 .replace('{{buttonText}}', buttonText)
-                .replace('{{okButtonText}}',opt.okButtonText)
-                .replace('{{cancelButtonText}}',opt.cancelButtonText)
+                .replace('{{okButtonText}}', opt.okButtonText)
+                .replace('{{cancelButtonText}}', opt.cancelButtonText)
+                .replace('{{okAttr}}', okAttr)
+                .replace('{{cancelAttr}}', cancelAttr)
         );
         // 插入消息框
         d.body.insertAdjacentHTML('beforeend', _html);
-
         let _obj = d.querySelector('#message_' + _id);
         // 毛玻璃背景
         let bgContent = d.querySelector('.wrapperContains');
@@ -60,22 +71,24 @@ export default {
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             let _className = e.target.className;
-            if (_className.indexOf('js-cancel') > -1) {
-                bgContent && bgContent.classList.remove('blur');
-                cancelEvent && cancelEvent();
-                _obj.className = `screenLock animated ${_animation}Out`;
-                // 在动画结束的时候再次移除
-                setTimeout(function () {
-                    _obj && _obj.parentNode.removeChild(_obj);
-                }, 500);
-            }
-            if (_className.indexOf('js-ok') > -1) {
-                bgContent&&bgContent.classList.remove('blur');
-                okEvent && okEvent();
-                _obj.className = `screenLock animated ${_animation}Out`;
-                setTimeout(function () {
-                    _obj && _obj.parentNode.removeChild(_obj);
-                }, 500);
+            if (!e.target.disabled) {
+                if (_className.indexOf('js-cancel') > -1) {
+                    bgContent && bgContent.classList.remove('blur');
+                    cancelEvent && cancelEvent();
+                    _obj.className = `screenLock animated ${_animation}Out`;
+                    // 在动画结束的时候再次移除
+                    setTimeout(function () {
+                        _obj && _obj.parentNode.removeChild(_obj);
+                    }, 500);
+                }
+                if (_className.indexOf('js-ok') > -1) {
+                    bgContent && bgContent.classList.remove('blur');
+                    okEvent && okEvent();
+                    _obj.className = `screenLock animated ${_animation}Out`;
+                    setTimeout(function () {
+                        _obj && _obj.parentNode.removeChild(_obj);
+                    }, 500);
+                }
             }
         });
 

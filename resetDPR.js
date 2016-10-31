@@ -1,7 +1,7 @@
-function setDPR() {
+function setDPR(_opt) {
     //定义设计稿宽度
     var d = document;
-    const desWidth = 750;
+    const desWidth = 375;
     var _dpr = (1 / window.devicePixelRatio);
     const _MaxWidth = 414 * window.devicePixelRatio;
     const userAgent = navigator.userAgent;

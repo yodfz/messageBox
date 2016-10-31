@@ -70,14 +70,14 @@
 .message .title {
   position: relative;
   text-align: center;
-  height: .4rem;
-  line-height: .4rem;
-  font-size: .32rem;
+  height: .2rem;
+  line-height: .2rem;
+  font-size: .16rem;
 }
 .message .content {
-  padding: .2rem;
-  font-size: .32rem;
-  line-height: .5rem;
+  padding: .1rem;
+  font-size: .16rem;
+  line-height: .25rem;
   text-align: center;
   color: #666;
   font-weight: 100;
@@ -95,11 +95,11 @@
   width: 50%;
   float: left;
   border: 0px;
-  height: .8rem;
+  height: .4rem;
   background-color: transparent;
   outline: none;
   transition-duration: .2s;
-  font-size: .32rem;
+  font-size: .16rem;
 }
 .message .buttonGroup .btn {
   width: 100% !important;
@@ -115,6 +115,7 @@
 .message .buttonGroup .leftBtn {
   border-top: 1px solid #eee;
   box-sizing: border-box;
+  border-bottom-left-radius: .1rem;
 }
 .message .buttonGroup .rightBtn {
   background-color: #e84c3d;

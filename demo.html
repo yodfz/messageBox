@@ -9,6 +9,12 @@
     <script src="resetDPR.js"></script>
     <link rel="stylesheet" href="./src/styles/messageBox.css">
     <script src="dist/messageBox.js"></script>
+    <style>
+        button {
+            height: 1rem;
+            font-size: .32rem;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapperContains">
@@ -17,10 +23,12 @@
     <button onclick="showme(2)">show me modal2</button>
     <button onclick="showme(3)">show me modal3</button>
     <button onclick="showme(4)">show me modal4</button>
+    <button onclick="showme1(0)">disabled ok modal</button>
+    <button onclick="showme2(0)">disabled ok and cancel modal</button>
 </div>
 <script>
     function showme(type) {
-        type = type ||0;
+        type = type || 0;
         messageBox.showMsg({
             title: '测试',
             content: '内容',
@@ -31,7 +39,41 @@
                 alert('cancel')
             },
             type: type,
-            buttonText:'确定解约'
+            buttonText: '确定解约'
+        });
+    }
+
+    function showme1(type) {
+        type = type || 0;
+        messageBox.showMsg({
+            title: '测试',
+            content: '内容',
+            ok: function (e) {
+                alert('ok');
+            },
+            cancel: function (e) {
+                alert('cancel')
+            },
+            type: type,
+            buttonText: '确定解约',
+            okButtonDisabled: true
+        });
+    }
+    function showme2(type) {
+        type = type || 0;
+        messageBox.showMsg({
+            title: '测试',
+            content: '内容',
+            ok: function (e) {
+                alert('ok');
+            },
+            cancel: function (e) {
+                alert('cancel')
+            },
+            type: type,
+            buttonText: '确定解约',
+            okButtonDisabled: true,
+            cancelButtonDisabled: true
         });
     }
 </script>

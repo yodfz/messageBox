@@ -6,7 +6,7 @@
 
 var template = {
     messageBox: '\n    <div id="message_{{id}}" class="screenLock">\n    <div id="message_js_{{id}}" class="lcs message animated {{animation}}In {{className}}">\n        <div class="title lcs {{className}}_title">\n        <span class="close js-cancel"></span>\n        {{title}}\n        </div>\n        <div class="content lcs {{className}}_content">\n        {{content}}\n        </div>\n        <div class="buttonGroup lcs">\n            {{button}}\n        </div>\n    </div></div>',
-    button: ['<button class="leftBtn js-cancel">{{cancelButtonText}}</button>\n             <button class="rightBtn js-ok">{{okButtonText}}</button>', '<button class="btn js-ok">\u786E\u5B9A</button>', '<button class="js-ok btn-color">{{buttonText}}</button>'],
+    button: ['<button class="leftBtn js-cancel" {{cancelAttr}}>{{cancelButtonText}}</button>\n             <button class="rightBtn js-ok" {{okAttr}}>{{okButtonText}}</button>', '<button class="btn js-ok" {{okAttr}}>\u786E\u5B9A</button>', '<button class="js-ok btn-color" {{okAttr}}>{{buttonText}}</button>'],
     className: ['', '', 'modal1']
 };
 
@@ -228,6 +228,8 @@ var index = {
             buttonText = result.buttonText;
             opt.okButtonText = result.okButtonText || '确定';
             opt.cancelButtonText = result.cancelButtonText || '取消';
+            opt.okButtonDisabled = result.okButtonDisabled || false;
+            opt.cancelButtonDisabled = result.cancelButtonDisabled || false;
         }
 
         _type = _type || 0;
@@ -239,10 +241,17 @@ var index = {
         var className = template.className[_type];
         var _html = template.messageBox.replace('{{title}}', _title).replace('{{content}}', _content).replace(/\{\{id\}\}/ig, _id).replace(/\{\{className\}\}/ig, className).replace('{{animation}}', _animation);
 
-        _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText).replace('{{okButtonText}}', opt.okButtonText).replace('{{cancelButtonText}}', opt.cancelButtonText));
+        var okAttr = '';
+        var cancelAttr = '';
+        if (opt.okButtonDisabled) {
+            okAttr = ' disabled="disabled"';
+        }
+        if (opt.cancelButtonDisabled) {
+            cancelAttr = ' disabled="disabled"';
+        }
+        _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText).replace('{{okButtonText}}', opt.okButtonText).replace('{{cancelButtonText}}', opt.cancelButtonText).replace('{{okAttr}}', okAttr).replace('{{cancelAttr}}', cancelAttr));
 
         d.body.insertAdjacentHTML('beforeend', _html);
-
         var _obj = d.querySelector('#message_' + _id);
 
         var bgContent = d.querySelector('.wrapperContains');
@@ -252,22 +261,24 @@ var index = {
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             var _className = e.target.className;
-            if (_className.indexOf('js-cancel') > -1) {
-                bgContent && bgContent.classList.remove('blur');
-                cancelEvent && cancelEvent();
-                _obj.className = 'screenLock animated ' + _animation + 'Out';
+            if (!e.target.disabled) {
+                if (_className.indexOf('js-cancel') > -1) {
+                    bgContent && bgContent.classList.remove('blur');
+                    cancelEvent && cancelEvent();
+                    _obj.className = 'screenLock animated ' + _animation + 'Out';
 
-                setTimeout(function () {
-                    _obj && _obj.parentNode.removeChild(_obj);
-                }, 500);
-            }
-            if (_className.indexOf('js-ok') > -1) {
-                bgContent && bgContent.classList.remove('blur');
-                okEvent && okEvent();
-                _obj.className = 'screenLock animated ' + _animation + 'Out';
-                setTimeout(function () {
-                    _obj && _obj.parentNode.removeChild(_obj);
-                }, 500);
+                    setTimeout(function () {
+                        _obj && _obj.parentNode.removeChild(_obj);
+                    }, 500);
+                }
+                if (_className.indexOf('js-ok') > -1) {
+                    bgContent && bgContent.classList.remove('blur');
+                    okEvent && okEvent();
+                    _obj.className = 'screenLock animated ' + _animation + 'Out';
+                    setTimeout(function () {
+                        _obj && _obj.parentNode.removeChild(_obj);
+                    }, 500);
+                }
             }
         });
 

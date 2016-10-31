@@ -14,10 +14,10 @@ export default  {
         </div>
     </div></div>`,
     button:[
-        `<button class="leftBtn js-cancel">{{cancelButtonText}}</button>
-             <button class="rightBtn js-ok">{{okButtonText}}</button>`,
-        `<button class="btn js-ok">确定</button>`,
-        `<button class="js-ok btn-color">{{buttonText}}</button>`
+        `<button class="leftBtn js-cancel" {{cancelAttr}}>{{cancelButtonText}}</button>
+             <button class="rightBtn js-ok" {{okAttr}}>{{okButtonText}}</button>`,
+        `<button class="btn js-ok" {{okAttr}}>确定</button>`,
+        `<button class="js-ok btn-color" {{okAttr}}>{{buttonText}}</button>`
     ],
     className:['','','modal1']
 };
