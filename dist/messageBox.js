@@ -10,6 +10,47 @@ var template = {
     className: ['', '', 'modal1']
 };
 
+var msgEvent = {};
+var i = 0;
+var onpopustate = {
+    install: function install() {
+        if (!window.messageBoxOnPopuState) {
+            var onpopustate = window.onpopustate;
+            window.messageBoxOnPopuState = true;
+            window.onpopstate = function () {
+                onpopustate && onpopustate();
+                var event = msgEvent[window.location.href];
+                if (!event) {
+                    event = {};
+                    event.index = -1;
+                }
+                var events = [];
+                for (var key in msgEvent) {
+                    if (msgEvent[key].index > event.index) {
+                        events.push(msgEvent[key]);
+                    }
+                }
+                events.forEach(function (p) {
+                    p.msg.forEach(function (el) {
+                        if (el) {
+                            el.destory();
+                        }
+                    });
+                });
+            };
+        }
+    },
+    regMsg: function regMsg(_obj, url) {
+        if (!msgEvent[url]) {
+            msgEvent[url] = {
+                index: i++,
+                msg: []
+            };
+        }
+        msgEvent[url].msg.push(_obj);
+    }
+};
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -212,6 +253,7 @@ var set = function set(object, property, value, receiver) {
 
 var index = {
     showMsg: function showMsg(_title, _content, okEvent, cancelEvent, _type, _animation) {
+        onpopustate.install();
         var _id = +new Date();
         var d = document;
         var buttonText = '';
@@ -257,7 +299,10 @@ var index = {
         var bgContent = d.querySelector('.wrapperContains');
         className && _obj.classList.add(className);
         bgContent && bgContent.classList.add('blur');
-
+        _obj.destory = function () {
+            bgContent && bgContent.classList.remove('blur');
+            _obj && _obj.parentNode.removeChild(_obj);
+        };
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             var _className = e.target.className;
@@ -281,7 +326,7 @@ var index = {
                 }
             }
         });
-
+        onpopustate.regMsg(_obj, window.location.href);
         _obj.addEventListener('click', function (e) {
             e.preventDefault();
         });

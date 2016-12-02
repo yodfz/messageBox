@@ -1,5 +1,5 @@
 import template from './template';
-
+import onpopustate from './onpopustate';
 export default {
     /**
      *
@@ -11,6 +11,7 @@ export default {
      * @param _animation    淡入淡出动画
      */
     showMsg (_title, _content, okEvent, cancelEvent, _type, _animation) {
+        onpopustate.install();
         let _id = +new Date();
         let d = document;
         let buttonText = '';
@@ -67,7 +68,10 @@ export default {
         let bgContent = d.querySelector('.wrapperContains');
         className && _obj.classList.add(className);
         bgContent && bgContent.classList.add('blur');// = 'wrapperContains blur';
-
+        _obj.destory = ()=>{
+            bgContent && bgContent.classList.remove('blur');
+            _obj && _obj.parentNode.removeChild(_obj);
+        };
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             let _className = e.target.className;
@@ -91,7 +95,7 @@ export default {
                 }
             }
         });
-
+        onpopustate.regMsg(_obj, window.location.href);
         _obj.addEventListener('click', function (e) {
             e.preventDefault();
         });
