@@ -76,6 +76,15 @@ export default {
             e.preventDefault();
             let _className = e.target.className;
             if (!e.target.disabled) {
+                if (_className.indexOf('screenLock') > -1) {
+                    bgContent && bgContent.classList.remove('blur');
+                    cancelEvent && cancelEvent(false);
+                    _obj.className = 'screenLock animated ' + _animation + 'Out';
+
+                    setTimeout(function () {
+                        _obj && _obj.parentNode.removeChild(_obj);
+                    }, 500);
+                }
                 if (_className.indexOf('js-cancel') > -1) {
                     bgContent && bgContent.classList.remove('blur');
                     cancelEvent && cancelEvent();
