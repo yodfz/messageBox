@@ -5,9 +5,9 @@
 }(this, (function () { 'use strict';
 
 var template = {
-    messageBox: '\n    <div id="message_{{id}}" class="screenLock">\n    <div id="message_js_{{id}}" class="lcs message animated {{animation}}In {{className}}">\n        <div class="title lcs {{className}}_title">\n        <span class="close js-cancel"></span>\n        {{title}}\n        </div>\n        <div class="content lcs {{className}}_content">\n        {{content}}\n        </div>\n        <div class="buttonGroup lcs">\n            {{button}}\n        </div>\n    </div></div>',
-    button: ['<button class="leftBtn js-cancel" {{cancelAttr}}>{{cancelButtonText}}</button>\n             <button class="rightBtn js-ok" {{okAttr}}>{{okButtonText}}</button>', '<button class="btn js-ok" {{okAttr}}>\u786E\u5B9A</button>', '<button class="js-ok btn-color" {{okAttr}}>{{buttonText}}</button>'],
-    className: ['', '', 'modal1']
+    messageBox: '\n    <div id="message_{{id}}" class="screenLock">\n    <div id="message_js_{{id}}" class="lcs message animated {{animation}}In {{className}}">\n        <div class="title lcs {{className}}_title">\n        <span class="close js-cancel">\n                    <i class="messageBoxIconFont icon-guanbi  js-cancel"></i>\n        </span>\n        {{title}}\n        </div>\n        <div class="content lcs {{className}}_content">\n        {{content}}\n        </div>\n        <div class="buttonGroup lcs">\n            {{button}}\n        </div>\n    </div></div>',
+    button: ['<button class="leftBtn js-cancel" {{cancelAttr}}>{{cancelButtonText}}</button>\n             <button class="rightBtn js-ok" {{okAttr}}>{{okButtonText}}</button>', '<button class="btn js-ok" {{okAttr}}>\u786E\u5B9A</button>', '<button class="js-ok btn-color" {{okAttr}}>{{buttonText}}</button>', ''],
+    className: ['', '', 'modal1', 'messageBox-modal2']
 };
 
 var msgEvent = {};
@@ -293,6 +293,7 @@ var index = {
         }
         _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText).replace('{{okButtonText}}', opt.okButtonText).replace('{{cancelButtonText}}', opt.cancelButtonText).replace('{{okAttr}}', okAttr).replace('{{cancelAttr}}', cancelAttr));
 
+        d.body.style.overflow = 'hidden';
         d.body.insertAdjacentHTML('beforeend', _html);
         var _obj = d.querySelector('#message_' + _id);
 
@@ -300,6 +301,7 @@ var index = {
         className && _obj.classList.add(className);
         bgContent && bgContent.classList.add('blur');
         _obj.destory = function () {
+            d.body.style.overflow = '';
             bgContent && bgContent.classList.remove('blur');
             _obj && _obj.parentNode.removeChild(_obj);
         };
@@ -307,11 +309,22 @@ var index = {
             e.preventDefault();
             var _className = e.target.className;
             if (!e.target.disabled) {
+                if (_className.indexOf('screenLock') > -1) {
+                    bgContent && bgContent.classList.remove('blur');
+                    cancelEvent && cancelEvent(false);
+                    _obj.className = 'screenLock animated ' + _animation + 'Out';
+                    d.body.style.overflow = '';
+
+                    setTimeout(function () {
+                        _obj && _obj.parentNode.removeChild(_obj);
+                    }, 500);
+                }
                 if (_className.indexOf('js-cancel') > -1) {
                     bgContent && bgContent.classList.remove('blur');
                     cancelEvent && cancelEvent();
                     _obj.className = 'screenLock animated ' + _animation + 'Out';
 
+                    d.body.style.overflow = '';
                     setTimeout(function () {
                         _obj && _obj.parentNode.removeChild(_obj);
                     }, 500);
@@ -319,6 +332,7 @@ var index = {
                 if (_className.indexOf('js-ok') > -1) {
                     bgContent && bgContent.classList.remove('blur');
                     okEvent && okEvent();
+                    d.body.style.overflow = '';
                     _obj.className = 'screenLock animated ' + _animation + 'Out';
                     setTimeout(function () {
                         _obj && _obj.parentNode.removeChild(_obj);

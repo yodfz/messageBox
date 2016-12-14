@@ -1,4 +1,5 @@
-@baseColor:#e84c3d;
+@baseColor: #e84c3d;
+@import 'iconfont.css';
 .message {
   position: fixed;
   background-color: rgba(255, 255, 255, .8);
@@ -14,54 +15,59 @@
   //-webkit-box-shadow: 1px 1px 10px #ccc;
   color: #000;
   z-index: 21;
-  .close{
+  .close {
     position: absolute;
     display: block;
-    top:.05rem;
-    left:0;
-    margin:0 0 0 .05rem;
-    width:.2rem;
-    height:.2rem;
-    &::after,&::before{
-      display: block;
-      content:' ';
-      border-top:2px solid #c7c7c7;
+    padding:.1rem;
+    top: -.2rem;
+    left: -.15rem;
+    margin: 0 0 0 .05rem;
+    color:#ccc;
+    width: .2rem;
+    height: .2rem;
+    i {
+      font-size: .24rem !important;
     }
-    &::after{
-      transform:translateX(1px) rotate(45deg);
-    }
+    //&::after,&::before{
+    //  display: block;
+    //  content:' ';
+    //  border-top:2px solid #c7c7c7;
+    //}
+    //&::after{
+    //  transform:translateX(1px) rotate(45deg);
+    //}
 
-    &::before{
-      transform:rotate(135deg);
-
-    }
+    //&::before{
+    //  transform:rotate(135deg);
+    //
+    //}
   }
 
-  &.modal1{
-    box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    padding:0.1rem .2rem .2rem .2rem;
-    .close{
-      margin:0.1rem 0 0 0 !important;
+  &.modal1 {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 0.1rem .2rem .2rem .2rem;
+    .close {
+      margin: 0.1rem 0 0 0 !important;
     }
-    .modal1_title{
-      height:.3rem;
-      line-height:.3rem;
-      color:#333;
-      font-size:.17rem;
-      border-bottom:1px solid #f5f5f5;
+    .modal1_title {
+      height: .3rem;
+      line-height: .3rem;
+      color: #333;
+      font-size: .17rem;
+      border-bottom: 1px solid #f5f5f5;
     }
-    .modal1_content{
+    .modal1_content {
 
     }
-    .btn-color{
-      width:100%;
-      border:0;
-      height:.4rem;
-      line-height:.4rem;
+    .btn-color {
+      width: 100%;
+      border: 0;
+      height: .4rem;
+      line-height: .4rem;
       border-radius: .04rem;
       -webkit-border-radius: .04rem;
-      font-size:.15rem;
+      font-size: .15rem;
     }
   }
 
@@ -74,7 +80,7 @@
   width: 100%;
   height: 100vh;
   height: 100%;
-  z-index:20;
+  z-index: 20;
   //background-color: transparent;
   background-color: rgba(0, 0, 0, .5);
 }
@@ -93,7 +99,7 @@
   line-height: .25rem;
   text-align: center;
   color: #666;
-  font-weight:100;
+  font-weight: 100;
 }
 
 .message .buttonGroup:after {
@@ -108,7 +114,7 @@
 
 .message .buttonGroup .leftBtn,
 .message .buttonGroup .rightBtn,
-.message .buttonGroup .btn{
+.message .buttonGroup .btn {
   width: 50%;
   float: left;
   border: 0px;
@@ -118,19 +124,22 @@
   transition-duration: .2s;
   font-size: .16rem;
 }
-.message .buttonGroup .btn{
-  width:100% !important;
+
+.message .buttonGroup .btn {
+  width: 100% !important;
   border-bottom-right-radius: .1rem;
   border-bottom-left-radius: .1rem;
-  border-top:1px solid #eee;
+  border-top: 1px solid #eee;
   color: @baseColor
 }
-.message .buttonGroup{
-  .btn-color{
-    color:#fff;
+
+.message .buttonGroup {
+  .btn-color {
+    color: #fff;
     background-color: @baseColor;
   }
 }
+
 .message .buttonGroup .leftBtn {
   border-top: 1px solid #eee;
   box-sizing: border-box;
@@ -148,6 +157,30 @@
 .message .buttonGroup button[disabled] {
   background-color: #ccc;
 }
-.blur{
-  filter:blur(10px);
+
+.blur {
+  filter: blur(10px);
+}
+
+.messageBox-modal2 {
+
+  .close {
+    padding:0 !important;
+    display: block;
+    border-radius: 50%;
+    background-color: #fff;
+    /*box-shadow: 0px 0px 5px 2px #FFF0F5;*/
+    left: auto !important;
+    right: -.05rem !important;
+    top: -.25rem !important;
+    margin: 0;
+    color: #e84a4d;
+    font-size: .3rem !important;
+    .icon-guanbi:before {
+      content: "\e6a1" !important;
+      position: relative;
+      top: -.04rem;
+      left: -.02rem;
+    }
+  }
 }

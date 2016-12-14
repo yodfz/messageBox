@@ -62,13 +62,15 @@ export default {
                 .replace('{{cancelAttr}}', cancelAttr)
         );
         // 插入消息框
+        d.body.style.overflow = 'hidden';
         d.body.insertAdjacentHTML('beforeend', _html);
         let _obj = d.querySelector('#message_' + _id);
         // 毛玻璃背景
         let bgContent = d.querySelector('.wrapperContains');
         className && _obj.classList.add(className);
         bgContent && bgContent.classList.add('blur');// = 'wrapperContains blur';
-        _obj.destory = ()=>{
+        _obj.destory = ()=> {
+            d.body.style.overflow = '';
             bgContent && bgContent.classList.remove('blur');
             _obj && _obj.parentNode.removeChild(_obj);
         };
@@ -80,6 +82,7 @@ export default {
                     bgContent && bgContent.classList.remove('blur');
                     cancelEvent && cancelEvent(false);
                     _obj.className = 'screenLock animated ' + _animation + 'Out';
+                    d.body.style.overflow = '';
 
                     setTimeout(function () {
                         _obj && _obj.parentNode.removeChild(_obj);
@@ -90,6 +93,7 @@ export default {
                     cancelEvent && cancelEvent();
                     _obj.className = `screenLock animated ${_animation}Out`;
                     // 在动画结束的时候再次移除
+                    d.body.style.overflow = '';
                     setTimeout(function () {
                         _obj && _obj.parentNode.removeChild(_obj);
                     }, 500);
@@ -97,6 +101,7 @@ export default {
                 if (_className.indexOf('js-ok') > -1) {
                     bgContent && bgContent.classList.remove('blur');
                     okEvent && okEvent();
+                    d.body.style.overflow = '';
                     _obj.className = `screenLock animated ${_animation}Out`;
                     setTimeout(function () {
                         _obj && _obj.parentNode.removeChild(_obj);

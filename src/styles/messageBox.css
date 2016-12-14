@@ -1,3 +1,4 @@
+@import 'iconfont.css';
 .message {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.8);
@@ -15,23 +16,16 @@
 .message .close {
   position: absolute;
   display: block;
-  top: .05rem;
-  left: 0;
+  padding: .1rem;
+  top: -0.2rem;
+  left: -0.15rem;
   margin: 0 0 0 .05rem;
+  color: #ccc;
   width: .2rem;
   height: .2rem;
 }
-.message .close::after,
-.message .close::before {
-  display: block;
-  content: ' ';
-  border-top: 2px solid #c7c7c7;
-}
-.message .close::after {
-  transform: translateX(1px) rotate(45deg);
-}
-.message .close::before {
-  transform: rotate(135deg);
+.message .close i {
+  font-size: .24rem !important;
 }
 .message.modal1 {
   box-sizing: border-box;
@@ -127,4 +121,23 @@
 }
 .blur {
   filter: blur(10px);
+}
+.messageBox-modal2 .close {
+  padding: 0 !important;
+  display: block;
+  border-radius: 50%;
+  background-color: #fff;
+  /*box-shadow: 0px 0px 5px 2px #FFF0F5;*/
+  left: auto !important;
+  right: -0.05rem !important;
+  top: -0.25rem !important;
+  margin: 0;
+  color: #e84a4d;
+  font-size: .3rem !important;
+}
+.messageBox-modal2 .close .icon-guanbi:before {
+  content: "\e6a1" !important;
+  position: relative;
+  top: -0.04rem;
+  left: -0.02rem;
 }
