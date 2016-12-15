@@ -5,7 +5,7 @@
 }(this, (function () { 'use strict';
 
 var template = {
-    messageBox: '\n    <div id="message_{{id}}" class="screenLock">\n    <div id="message_js_{{id}}" class="lcs message animated {{animation}}In {{className}}">\n        <div class="title lcs {{className}}_title">\n        <span class="close js-cancel">\n                    <i class="messageBoxIconFont icon-guanbi  js-cancel"></i>\n        </span>\n        {{title}}\n        </div>\n        <div class="content lcs {{className}}_content">\n        {{content}}\n        </div>\n        <div class="buttonGroup lcs">\n            {{button}}\n        </div>\n    </div></div>',
+    messageBox: '\n    <div id="message_{{id}}" class="screenLock">\n    <div id="message_js_{{id}}" style="{{style}}" class="lcs message animated {{animation}}In {{className}}">\n        <div class="title lcs {{className}}_title">\n        <span class="close js-cancel">\n                    <i class="messageBoxIconFont icon-guanbi  js-cancel"></i>\n        </span>\n        {{title}}\n        </div>\n        <div class="content lcs {{className}}_content">\n        {{content}}\n        </div>\n        <div class="buttonGroup lcs">\n            {{button}}\n        </div>\n    </div></div>',
     button: ['<button class="leftBtn js-cancel" {{cancelAttr}}>{{cancelButtonText}}</button>\n             <button class="rightBtn js-ok" {{okAttr}}>{{okButtonText}}</button>', '<button class="btn js-ok" {{okAttr}}>\u786E\u5B9A</button>', '<button class="js-ok btn-color" {{okAttr}}>{{buttonText}}</button>', ''],
     className: ['', '', 'modal1', 'messageBox-modal2']
 };
@@ -267,6 +267,7 @@ var index = {
             cancelEvent = result.cancel;
             _type = result.type;
             _animation = result.animation;
+            opt.top = result.top;
             buttonText = result.buttonText;
             opt.okButtonText = result.okButtonText || '确定';
             opt.cancelButtonText = result.cancelButtonText || '取消';
@@ -291,7 +292,7 @@ var index = {
         if (opt.cancelButtonDisabled) {
             cancelAttr = ' disabled="disabled"';
         }
-        _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText).replace('{{okButtonText}}', opt.okButtonText).replace('{{cancelButtonText}}', opt.cancelButtonText).replace('{{okAttr}}', okAttr).replace('{{cancelAttr}}', cancelAttr));
+        _html = _html.replace('{{button}}', template.button[_type].replace('{{buttonText}}', buttonText).replace('{{style}}', 'top:' + opt.top).replace('{{okButtonText}}', opt.okButtonText).replace('{{cancelButtonText}}', opt.cancelButtonText).replace('{{okAttr}}', okAttr).replace('{{cancelAttr}}', cancelAttr));
 
         d.body.style.overflow = 'hidden';
         d.body.insertAdjacentHTML('beforeend', _html);

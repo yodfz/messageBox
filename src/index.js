@@ -25,6 +25,7 @@ export default {
             cancelEvent = result.cancel;
             _type = result.type;
             _animation = result.animation;
+            opt.top = result.top;
             buttonText = result.buttonText;
             opt.okButtonText = result.okButtonText || '确定';
             opt.cancelButtonText = result.cancelButtonText || '取消';
@@ -56,6 +57,7 @@ export default {
         _html = _html.replace('{{button}}',
             template.button[_type]
                 .replace('{{buttonText}}', buttonText)
+                .replace('{{style}}', 'top:' + opt.top)
                 .replace('{{okButtonText}}', opt.okButtonText)
                 .replace('{{cancelButtonText}}', opt.cancelButtonText)
                 .replace('{{okAttr}}', okAttr)

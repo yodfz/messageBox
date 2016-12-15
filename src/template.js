@@ -1,7 +1,7 @@
 export default  {
     messageBox:`
     <div id="message_{{id}}" class="screenLock">
-    <div id="message_js_{{id}}" class="lcs message animated {{animation}}In {{className}}">
+    <div id="message_js_{{id}}" style="{{style}}" class="lcs message animated {{animation}}In {{className}}">
         <div class="title lcs {{className}}_title">
         <span class="close js-cancel">
                     <i class="messageBoxIconFont icon-guanbi  js-cancel"></i>
