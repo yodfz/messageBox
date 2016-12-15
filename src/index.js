@@ -85,6 +85,7 @@ export default {
             e.preventDefault();
             let _className = e.target.className;
             if (!e.target.disabled) {
+                let messageBoxObj=_obj.querySelector('.message');
                 if (_className.indexOf('screenLock') > -1) {
                     bgContent && bgContent.classList.remove('blur');
                     cancelEvent && cancelEvent(false);
@@ -98,7 +99,9 @@ export default {
                 if (_className.indexOf('js-cancel') > -1) {
                     bgContent && bgContent.classList.remove('blur');
                     cancelEvent && cancelEvent();
-                    _obj.className = `screenLock animated ${_animation}Out`;
+                    _obj.className = `screenLock animated fadeOut`;
+                    messageBoxObj.classList.remove(`${_animation}In`);
+                    messageBoxObj.classList.add(`${_animation}In`);
                     // 在动画结束的时候再次移除
                     d.body.style.overflow = '';
                     setTimeout(function () {
@@ -109,7 +112,9 @@ export default {
                     bgContent && bgContent.classList.remove('blur');
                     okEvent && okEvent();
                     d.body.style.overflow = '';
-                    _obj.className = `screenLock animated ${_animation}Out`;
+                    _obj.className = `screenLock animated fadeOut`;
+                    messageBoxObj.classList.remove(`${_animation}In`);
+                    messageBoxObj.classList.add(`${_animation}In`);
                     setTimeout(function () {
                         _obj && _obj.parentNode.removeChild(_obj);
                     }, 500);

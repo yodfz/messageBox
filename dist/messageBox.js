@@ -299,6 +299,11 @@ var index = {
         var _obj = d.querySelector('#message_' + _id);
 
         var bgContent = d.querySelector('.wrapperContains');
+        var bg = d.querySelector('.screenLock');
+        bg.ontouchmove = function (e) {
+            e && e.stopPropagation();
+            e && e.preventDefault();
+        };
         className && _obj.classList.add(className);
         bgContent && bgContent.classList.add('blur');
         _obj.destory = function () {
@@ -309,39 +314,34 @@ var index = {
         _obj.addEventListener($eventStart, function (e) {
             e.preventDefault();
             var _className = e.target.className;
+            var closeEvent = function () {
+                bgContent && bgContent.classList.remove('blur');
+                // _obj.className = 'screenLock animated fadeOut';
+                messageBoxObj.classList.remove(_animation + 'In');
+                messageBoxObj.classList.add(_animation + 'Out');
+                d.body.style.overflow = '';
+                setTimeout(function () {
+                    _obj && _obj.parentNode.removeChild(_obj);
+                }, 500);
+            };
             if (!e.target.disabled) {
+                var messageBoxObj = _obj.querySelector('.message');
                 if (_className.indexOf('screenLock') > -1) {
-                    bgContent && bgContent.classList.remove('blur');
                     cancelEvent && cancelEvent(false);
-                    _obj.className = 'screenLock animated ' + _animation + 'Out';
-                    d.body.style.overflow = '';
-
-                    setTimeout(function () {
-                        _obj && _obj.parentNode.removeChild(_obj);
-                    }, 500);
+                    closeEvent();
                 }
                 if (_className.indexOf('js-cancel') > -1) {
-                    bgContent && bgContent.classList.remove('blur');
                     cancelEvent && cancelEvent();
-                    _obj.className = 'screenLock animated ' + _animation + 'Out';
-
-                    d.body.style.overflow = '';
-                    setTimeout(function () {
-                        _obj && _obj.parentNode.removeChild(_obj);
-                    }, 500);
+                    closeEvent();
                 }
                 if (_className.indexOf('js-ok') > -1) {
-                    bgContent && bgContent.classList.remove('blur');
                     okEvent && okEvent();
-                    d.body.style.overflow = '';
-                    _obj.className = 'screenLock animated ' + _animation + 'Out';
-                    setTimeout(function () {
-                        _obj && _obj.parentNode.removeChild(_obj);
-                    }, 500);
+                    closeEvent();
                 }
             }
         });
         onpopustate.regMsg(_obj, window.location.href);
+
         _obj.addEventListener('click', function (e) {
             e.preventDefault();
         });
