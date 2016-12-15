@@ -69,6 +69,11 @@ export default {
         let _obj = d.querySelector('#message_' + _id);
         // 毛玻璃背景
         let bgContent = d.querySelector('.wrapperContains');
+        let bg = d.querySelector('.screenLock');
+        bg.ontouchmove = function (e) {
+            e && e.stopPropagation();
+            e && e.preventDefault();
+        };
         className && _obj.classList.add(className);
         bgContent && bgContent.classList.add('blur');// = 'wrapperContains blur';
         _obj.destory = ()=> {
@@ -112,6 +117,7 @@ export default {
             }
         });
         onpopustate.regMsg(_obj, window.location.href);
+
         _obj.addEventListener('click', function (e) {
             e.preventDefault();
         });
